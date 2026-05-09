@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: GPL-2.0
+
+# Enable available Clang PGO features.
+
+NUM_DIRS := $(words $(subst /, ,$(abs_srctree)))
+
+CFLAGS_PGO_CLANG := -fprofile-use=$(srctree)/vmlinux.profdata \
+		    -mllvm -static-func-strip-dirname-prefix=$(NUM_DIRS) \
+		    -Wno-backend-plugin
+
+export CFLAGS_PGO_CLANG
